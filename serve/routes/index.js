@@ -8,7 +8,7 @@ const db = mysql.createPool({
   password: '123456'
 });
 
-router.get('/coSettingList', (req, res, next) => {
+router.get('/coSettingList', (req, res) => {
   db.query(`select * from co_setting`, (err, data) => {
     if(err){
       res.json({status: 404, msg: '读取数据失败！'});
@@ -18,7 +18,7 @@ router.get('/coSettingList', (req, res, next) => {
   })
 });
 
-router.post('/coSetting/edit', (req, res, next) => {
+router.post('/coSetting/edit', (req, res) => {
   const ipaddress = req.body.ipaddress;
   const ipport = req.body.ipport;
   const ftpaddress = req.body.ftpaddress;
@@ -34,7 +34,7 @@ router.post('/coSetting/edit', (req, res, next) => {
   })
 });
 
-router.get('/goSettingList', (req, res, next) => {
+router.get('/goSettingList', (req, res) => {
   db.query(`select * from go_setting`, (err, data) => {
     if(err){
       res.json({status: 404, msg: '读取数据失败！'});
@@ -44,7 +44,7 @@ router.get('/goSettingList', (req, res, next) => {
   })
 });
 
-router.post('/goSetting/edit', (req, res, next) => {
+router.post('/goSetting/edit', (req, res) => {
   const ipaddress = req.body.ipaddress;
   const ipport = req.body.ipport;
   const ftpaddress = req.body.ftpaddress;
@@ -60,7 +60,7 @@ router.post('/goSetting/edit', (req, res, next) => {
   })
 });
 
-router.post('/boSettingList', (req, res, next) => {
+router.post('/boSettingList', (req, res) => {
   const bankid = req.body.bankId;
   const bankname = req.body.bankName;
   let sqlStr = `select * from address_port where bankid like '%${bankid}%' and bankname like '%${bankname}%' order by id desc`;
@@ -73,7 +73,7 @@ router.post('/boSettingList', (req, res, next) => {
   })
 });
 
-router.get('/boSettingList/bankName', (req, res, next) => {
+router.get('/boSettingList/bankName', (req, res) => {
   db.query(`select distinct bankname as value from address_port`, (err, data) => {
     if(err){
       res.json({status: 404, msg: '读取数据失败！'});
@@ -83,7 +83,7 @@ router.get('/boSettingList/bankName', (req, res, next) => {
   })
 });
 
-router.post('/boSetting/add', (req, res, next) => {
+router.post('/boSetting/add', (req, res) => {
   const bankid = req.body.bankid;
   const bankname = req.body.bankname;
   const activation = req.body.activation;
@@ -102,7 +102,7 @@ router.post('/boSetting/add', (req, res, next) => {
   })
 });
 
-router.post('/boSetting/edit', (req, res, next) => {
+router.post('/boSetting/edit', (req, res) => {
   const id = req.body.id;
   const bankid = req.body.bankid;
   const bankname = req.body.bankname;
@@ -122,7 +122,7 @@ router.post('/boSetting/edit', (req, res, next) => {
   })
 });
 
-router.post('/boSetting/delete', (req, res, next) => {
+router.post('/boSetting/delete', (req, res) => {
   const id = req.body.id;
   let sqlStr = "delete from address_port where id = " + id;
   db.query(sqlStr, (err, data) => {
@@ -134,7 +134,7 @@ router.post('/boSetting/delete', (req, res, next) => {
   })
 });
 
-router.post('/mixQueryList', (req, res, next) => {
+router.post('/mixQueryList', (req, res) => {
   const request = req.body.request;
   const inter = req.body.interface;
   const startTime = req.body.startTime;
@@ -154,7 +154,7 @@ router.post('/mixQueryList', (req, res, next) => {
   })
 });
 
-router.get('/mixQueryList/request', (req, res, next) => {
+router.get('/mixQueryList/request', (req, res) => {
   let sqlStr = `select distinct request as value from mix_query`;
 
   db.query(sqlStr, (err, data) => {
@@ -166,8 +166,112 @@ router.get('/mixQueryList/request', (req, res, next) => {
   })
 });
 
-router.get('/mixQueryList/interface', (req, res, next) => {
+router.get('/mixQueryList/interface', (req, res) => {
   let sqlStr = `select distinct interface as value from mix_query`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data})
+    }
+  })
+});
+
+router.post('/dashboard', (req, res) => {
+  const year = req.body.year;
+  let sqlStr = `select interface as name, num as value from dashboard where year = '${year}' order by id desc`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data});
+    }
+  })
+});
+
+router.get('/dashboard/list', (req, res) => {
+  let sqlStr = `select distinct interface from dashboard`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data})
+    }
+  })
+});
+
+router.get('/dashboard/year', (req, res) => {
+  let sqlStr = `select distinct year from dashboard`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data})
+    }
+  })
+});
+
+router.post('/dashboardTwo', (req, res) => {
+  const interface = req.body.interface;
+  const year = req.body.year;
+  let sqlStr = `select bankname as name, number as value from dashboard_two where interface = '${interface}' and year = '${year}' order by id desc`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data});
+    }
+  })
+});
+
+router.post('/dashboardTwo/list', (req, res) => {
+  const interface = req.body.interface;
+  let sqlStr = `select bankname from dashboard_two where interface = '${interface}'`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      console.log(err);
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data})
+    }
+  })
+});
+
+router.get('/dashboardTwo/year', (req, res) => {
+  let sqlStr = `select distinct year from dashboard_two`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data})
+    }
+  })
+});
+
+router.post('/dashboardThree', (req, res) => {
+  const interface = req.body.interface;
+  const bankname = req.body.bankname;
+  const year = req.body.year;
+  let sqlStr = `select * from dashboard_three where interface = '${interface}' and bankname = '${bankname}' and year = '${year}'`;
+
+  db.query(sqlStr, (err, data) => {
+    if(err){
+      res.json({status: 404, msg: '读取数据失败！'});
+    }else{
+      res.json({status: 200, msg: data});
+    }
+  })
+});
+
+router.get('/dashboardThree/year', (req, res) => {
+  let sqlStr = `select distinct year from dashboard_three`;
 
   db.query(sqlStr, (err, data) => {
     if(err){

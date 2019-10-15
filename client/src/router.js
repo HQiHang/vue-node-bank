@@ -42,9 +42,19 @@ const router = new Router({
           component: () => import('./views/query/mixQuery.vue')
         },
         {
-          path: '/dashBoard',
-          name: 'dashBoard',
-          component: () => import('./views/query/dashBoard.vue')
+          path: '/dashBoardOne',
+          name: 'dashBoardOne',
+          component: () => import('./views/query/dashBoardStepOne.vue')
+        },
+        {
+          path: '/dashBoardTwo',
+          name: 'dashBoardTwo',
+          component: () => import('./views/query/dashBoardStepTwo.vue')
+        },
+        {
+          path: '/dashBoardThree',
+          name: 'dashBoardThree',
+          component: () => import('./views/query/dashBoardStepThree.vue')
         }
       ]
     }

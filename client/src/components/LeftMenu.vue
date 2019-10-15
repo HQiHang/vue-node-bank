@@ -58,7 +58,7 @@
                                 name: "综合查询"
                             },
                             {
-                                path: "dashBoard",
+                                path: "dashBoardOne",
                                 name: "仪表盘"
                             }
                         ]

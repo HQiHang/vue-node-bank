@@ -265,16 +265,16 @@
 </script>
 
 <style scoped>
-    .boSetting {
+    .boSetting{
         width: 100%;
         height: 100%;
         padding: 15px;
         box-sizing: border-box;
     }
-    .btnRight {
+    .btnRight{
         float: right;
     }
-    .pagination {
+    .pagination{
         text-align: right;
         margin-top: 10px;
     }

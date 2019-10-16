@@ -1,7 +1,7 @@
 <template>
     <div class="mixQuery">
         <!--搜索-->
-        <div>
+        <div class="search">
             <el-form :inline="true" ref="search_data" :model="search">
                 <el-form-item label="请求方">
                     <el-autocomplete
@@ -212,13 +212,13 @@
 </script>
 
 <style scoped>
-    .mixQuery {
+    .mixQuery{
         width: 100%;
         height: 100%;
         padding: 15px;
         box-sizing: border-box;
     }
-    .pagination {
+    .pagination{
         text-align: right;
         margin-top: 10px;
     }

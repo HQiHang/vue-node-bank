@@ -5,7 +5,7 @@
 </template>
 
 <style>
-  .el-table th {
-    display: table-cell!important;
+  .el-table th{
+    display: table-cell !important;
   }
 </style>

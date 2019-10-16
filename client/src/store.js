@@ -6,7 +6,6 @@ Vue.use(Vuex);
 const types = {
   SET_NAME: 'SET_NAME',
   SET_VALUE: 'SET_VALUE',
-
   SET_INTERFACE: 'SET_INTERFACE',
   SET_BANKNAME: 'SET_BANKNAME',
   SET_YEAR: 'SET_YEAR'
@@ -15,9 +14,6 @@ const types = {
 const state = {
   name: null,
   value: null,
-
-
-
   interface: null,
   bankname: null,
   year: null

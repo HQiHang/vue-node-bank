@@ -3,7 +3,7 @@
         <div>
             <el-form :inline="true" ref="search_data" :model="search">
                 <el-form-item label="年份">
-                    <el-select v-model="search.year" placeholder="请选择">
+                    <el-select v-model="search.year" placeholder="请选择" value="">
                         <el-option
                             v-for="item in options"
                             :label="item.year"
@@ -22,6 +22,7 @@
 
 <script>
     import echarts from 'echarts'
+
     export default {
         name: "dashBoardStepTwo",
         data(){

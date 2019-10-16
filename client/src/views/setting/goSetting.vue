@@ -108,7 +108,7 @@
 </script>
 
 <style scoped>
-    .goSetting {
+    .goSetting{
         width: 100%;
         height: 100%;
         padding: 15px;
